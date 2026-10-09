@@ -503,3 +503,50 @@ initial begin
 end
 
 endmodule
+// --------------------------------------------------------
+// Problem 3(b)
+// --------------------------------------------------------
+
+$display("Testing the 16-bit PPA");
+
+// Unsigned addition: 3 + 4 = 7
+check_ppa(16'h0003, 16'h0004, 1'b0,
+          16'h0007, 1'b0);
+
+// 7 - 3, entered as 7 + (~3) + 1
+check_ppa(16'h0007, 16'hFFFC, 1'b1,
+          16'h0004, 1'b1);
+
+// Signed addition: -3 + 5 = 2
+check_ppa(16'hFFFD, 16'h0005, 1'b0,
+          16'h0002, 1'b1);
+
+// 2 - (-3), entered as 2 + (~(-3)) + 1
+check_ppa(16'h0002, 16'h0002, 1'b1,
+          16'h0005, 1'b0);
+
+// Carry out of bit 15
+check_ppa(16'hFFFF, 16'h0001, 1'b0,
+          16'h0000, 1'b1);
+
+// 3 - 5, entered as 3 + (~5) + 1
+check_ppa(16'h0003, 16'hFFFA, 1'b1,
+          16'hFFFE, 1'b0);
+
+// Carry across several bit positions
+check_ppa(16'h0FFF, 16'h0001, 1'b0,
+          16'h1000, 1'b0);
+
+// Carry-in passes through all 16 bits
+check_ppa(16'hFFFF, 16'h0000, 1'b1,
+          16'h0000, 1'b1);
+
+if (errors == 0)
+    $display("ALL TESTS PASSED");
+else
+    $display("%0d TEST(S) FAILED", errors);
+
+$finish;
+end
+
+endmodule
