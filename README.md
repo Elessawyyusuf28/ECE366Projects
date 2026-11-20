@@ -1,48 +1,49 @@
-# ECE 366 Project 2 - Progress Report 2
+# ECE 366 Project 2 Final Report
 
-**Course:** ECE 366 - Computer Organization  
-**Semester:** Fall 2026  
-**Date:** November 14, 2026
+ECE 366 Computer Organization, Fall 2026  
+November 19, 2026
 
-## Team Members
-- Yusuf Elessawy (yeles)
-- Husaam Khan (hkhan216)
-- Salah El Hilo (selhi)
+## Team Members and Contributions
+
+| Team member | NetID | Contribution |
+|---|---|---|
+| Yusuf Elessawy | yeles | Program testing and verification in MARS for Progress Report 2. |
+| Husaam Khan | hkhan216 | Implemented IsOdd and division by repeated subtraction. |
+| Salah El Hilo | selhi | Integrated Fibonacci and IsOdd into the final IsFibonacciOdd program. |
+
+Each team member completed their assigned part and sent their work to Yusuf. Yusuf then organized the files and uploaded the team's work to the GitHub repository.
 
 ## Project Summary
-For this progress report, we completed Part B of Project 2, which determines whether a number is odd or even using MIPS assembly. The program uses division by repeated subtraction to find the remainder when a number is divided by 2.
 
-If the remainder is 0, the program returns 0 for even. Otherwise, it returns 1 for odd. The result is stored in memory.
-
-## Contributions
-- Yusuf: Program testing and verification in MARS.
-- Husaam: Implementation of the IsOdd function and division by repeated subtraction.
-- Salah: Preparation for combining the Fibonacci and IsOdd functions in Part C.
+The program reads the nonnegative integer `n` from memory. `IsFibonacciOdd`
+calls `Fibonacci` to compute the nth Fibonacci number and passes it to
+`IsOdd`. The division routine subtracts 2 repeatedly to find the remainder.
+The program stores that remainder at `result`, where 1 means odd and 0 means even.
 
 ## How to Run
-1. Open IsOdd.asm in MARS.
-2. Change the value of m in the data section.
-3. Assemble the program using F3.
-4. Run the program using F5.
-5. Check the result in the Data Segment at address 0x10010004.
 
-A result of 0 means even, and a result of 1 means odd.
+1. Extract the submission archive and open `IsFibonacciOdd.asm` in MARS.
+2. If MARS is set to assemble all files in the directory, turn that setting off
+   before assembling. This file contains the full program.
+3. Set `n` in the data section. Use small nonnegative values for quick runs.
+4. Assemble with F3 and run with F5. Reassemble after each change to `n`.
+5. Read `result` in the Data Segment. With the default memory configuration,
+   it is the second word at `0x10010004`.
 
-## Testing Results
+The Fibonacci number must fit in a signed 32-bit word (up to n = 46).
+Repeated subtraction can make larger inputs slow to run.
 
-| Input | Expected Output | Actual Output |
-|---|---|---|
+## Expected Results
+
+| n | Fibonacci(n) | Value at result |
+|---:|---:|---:|
 | 0 | 0 | 0 |
 | 1 | 1 | 1 |
-| 2 | 0 | 0 |
-| 7 | 1 | 1 |
-| 8 | 0 | 0 |
-| 15 | 1 | 1 |
-
-All six test cases passed successfully in MARS.
-
-## Next Steps
-For the final report, we will combine the Fibonacci and IsOdd functions to determine whether the nth Fibonacci number is odd.
+| 2 | 1 | 1 |
+| 3 | 2 | 0 |
+| 9 | 34 | 0 |
+| 10 | 55 | 1 |
 
 ## GitHub
-https://github.com/Elessawyyusuf28/ECE366Projects
+
+[Team repository](https://github.com/Elessawyyusuf28/ECE366Projects)
